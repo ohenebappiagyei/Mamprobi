@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the Excel file
-file_path = 'your_file_path.xlsx'
+file_path = r'C:\Users\HP\Desktop\codes\Mamprobi\RUM_prince\RUM.csv'
 df = pd.read_excel(file_path)
 
 # Keep rows where 'Modality' column contains 'OPD'
