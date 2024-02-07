@@ -2,38 +2,22 @@ import pandas as pd
 import random
 
 # Read the Excel file
-file_path = r'C:\Users\HP\Desktop\codes\Mamprobi\RUM_prince\RUM.csv'
+file_path = 'your_excel_file.xlsx'
+df = pd.read_excel(file_path)
 
-# Read the Excel file
-df = pd.read_csv(file_path)  # Assuming it's a CSV file, not Excel
+# Filter rows where Modality is OPD in column 10
+df_opd = df[df['Modality'].str.contains('OPD', case=False, na=False)]
 
-# Delete the first 3 rows
-# df = df.iloc[3:]
+# Keep only relevant columns
+relevant_columns = ['Modality', 'Provisional Diagnosis', 'Principal Diagnosis', 'Additional Diagnosis']
+df_opd_relevant = df_opd[relevant_columns]
 
-print(df.columns)
+# Randomly select 50 rows
+random_selection = df_opd_relevant.sample(n=50, random_state=42)  # You can change the random_state for different selections
 
-# Extract specific columns
-columns_to_keep = ['Modality', 'Provisional Diagnosis', 'Principal Diagnosis', 'Additional Diagnosis', 'Medicine Prescribed', 'Medicine Dispensed']
-df_cleaned = df[['Sr.No.', 'Schedule Date', 'NHIA No.', 'Patient No.', 'Patient Name', 'Locality', 'Contact No.',
-                 'Age', 'Gender', *columns_to_keep, 'Type of Procedure(s) Requested', 'Type of Test(s) Requested',
-                 'Test Result(s)', 'Pregnant Patient', 'NHIA Patient', 'Occupation', 'Ward/Room', 'Date of Admission',
-                 'Date of Discharge', 'Outcome of Discharge', 'Surgical Procedure', 'Cost of Treatment (GHS)',
-                 'Admission Type', 'E-tracking Number']]
+# Save the results to a new Excel file
+output_file_path = 'cleaned_data.xlsx'
+random_selection.to_excel(output_file_path, index=False)
 
-# Save the cleaned data to a new file
-cleaned_file_path = 'cleaned_RUM.xlsx'
-df_cleaned.to_excel(cleaned_file_path, index=False)
-
-# Extract data where 'Modality' column contains 'OPD'
-opd_data = df[df['Modality'] == 'OPD']
-opd_file_path = 'opd_data.xlsx'
-opd_data.to_excel(opd_file_path, index=False)
-
-# Randomly select 50 rows from Diagnosis
-diagnosis_columns = ['Provisional Diagnosis', 'Principal Diagnosis', 'Additional Diagnosis']
-random_diagnosis_data = pd.concat([df[col].sample(50, replace=True) for col in diagnosis_columns], axis=1)
-
-# Save the randomly selected diagnosis data to a new file
-random_diagnosis_file_path = 'RUM_final.xlsx'
-random_diagnosis_data.to_excel(random_diagnosis_file_path, index=False)
+print(f"Data has been cleaned and saved to {output_file_path}.")
 
