@@ -13,7 +13,7 @@ exclude_medicines = [
     "Tamsulosin %", "Atenolol %", "Losartan %", "Soluble Aspirin %", 
     "Bendroflumethiazide %", "Clopidogrel %"
 ]
-df_opd_sample = df_opd[~df_opd['medicine prescribed'].isin(exclude_medicines)]
+df_opd_sample = df_opd[~df_opd['Medicine Prescribed'].isin(exclude_medicines)]
 
 # Select 50 random rows
 df_opd_sample = df_opd_sample.sample(n=50, random_state=42)  # You can change the random_state if needed
