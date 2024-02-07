@@ -5,7 +5,7 @@ import random
 file_path = r'C:\Users\HP\Desktop\codes\Mamprobi\RUM_prince\RUM.csv'
 
 # Read the Excel file
-df = pd.read_excel(file_path)
+df = pd.read_csv(file_path)  # Assuming it's a CSV file, not Excel
 
 # Delete the first 3 rows
 # df = df.iloc[3:]
@@ -13,8 +13,12 @@ df = pd.read_excel(file_path)
 print(df.columns)
 
 # Extract specific columns
-columns_to_keep = ['Modality', 'Provisional Diagnosis','Principal Diagnosis', 'Additional Diagnosis', 'Medicine Prescribed', 'Medicine Dispensed']
-df_cleaned = df[columns_to_keep]
+columns_to_keep = ['Modality', 'Provisional Diagnosis', 'Principal Diagnosis', 'Additional Diagnosis', 'Medicine Prescribed', 'Medicine Dispensed']
+df_cleaned = df[['Sr.No.', 'Schedule Date', 'NHIA No.', 'Patient No.', 'Patient Name', 'Locality', 'Contact No.',
+                 'Age', 'Gender', *columns_to_keep, 'Type of Procedure(s) Requested', 'Type of Test(s) Requested',
+                 'Test Result(s)', 'Pregnant Patient', 'NHIA Patient', 'Occupation', 'Ward/Room', 'Date of Admission',
+                 'Date of Discharge', 'Outcome of Discharge', 'Surgical Procedure', 'Cost of Treatment (GHS)',
+                 'Admission Type', 'E-tracking Number']]
 
 # Save the cleaned data to a new file
 cleaned_file_path = 'cleaned_RUM.xlsx'
@@ -32,3 +36,4 @@ random_diagnosis_data = pd.concat([df[col].sample(50, replace=True) for col in d
 # Save the randomly selected diagnosis data to a new file
 random_diagnosis_file_path = 'RUM_final.xlsx'
 random_diagnosis_data.to_excel(random_diagnosis_file_path, index=False)
+
