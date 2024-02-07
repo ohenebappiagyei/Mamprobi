@@ -1,7 +1,13 @@
+from pathlib import Path
 import pandas as pd
 
+# Path to project
+BASE_DIR = Path(__file__).resolve().parent 
+
+# Specify the relative path to the CSV file
+file_path = BASE_DIR/'RUM.csv'
+
 # Read the Excel file
-file_path = r'C:\Users\HP\Desktop\codes\Mamprobi\RUM_prince\RUM.csv'
 df = pd.read_excel(file_path)
 
 # Keep rows where 'Modality' column contains 'OPD'
@@ -24,7 +30,7 @@ df_opd_sample = df_opd[~df_opd['Medicine Prescribed'].str.contains(pattern, case
 df_opd_sample = df_opd_sample.sample(n=50, random_state=42)
 
 # Save the cleaned and sampled data to a new file
-output_file_path = 'RUM_final_data.xlsx'
+output_file_path = BASE_DIR / 'RUM_final_data.xlsx'
 df_opd_sample.to_excel(output_file_path, index=False)
 
 print(f'Data has been cleaned and saved to {output_file_path}')
