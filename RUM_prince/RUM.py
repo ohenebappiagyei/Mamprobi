@@ -2,7 +2,9 @@ import pandas as pd
 import random
 
 # Read the Excel file
-file_path = 'your_excel_file.xlsx'
+file_path = r'C:\Users\HP\Desktop\codes\Mamprobi\RUM_prince\RUM.csv'
+
+# Read the Excel file
 df = pd.read_excel(file_path)
 
 # Filter rows where Modality is OPD in column 10
